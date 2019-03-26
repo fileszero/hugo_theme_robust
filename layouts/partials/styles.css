@@ -1,5 +1,5 @@
 html {
-  font-size: 18px;
+  font-size: 16px;
   background-color: rgba(236,239,241,.5);
 }
 
@@ -79,7 +79,7 @@ aside.f {
 
 .l-container {
   position: relative;
-  max-width: 68rem;
+  /* max-width: 68rem; */
   margin: 0 auto;
   padding: 0 1rem;
 }
@@ -350,7 +350,8 @@ article.sn > .article-body pre {
   background-color: #333;
   color: #fff;
   line-height: 1rem;
-  margin: 1.5rem -2rem;
+  /* margin: 1.5rem -2rem; */
+  margin: 1.5rem -0.5rem;
   overflow: auto;
 }
 
@@ -695,6 +696,19 @@ section.footer > header a {
   background-position: center;
 }
 
+kbd{
+    background-color: #f9fcff;
+    border-radius: 3px;
+    border: 1px solid #b4b4b4;
+    box-shadow: 0 1px 1px rgba(0,0,0,.2), 0 2px 0 0 rgba(255,255,255,.7) inset;
+    display: inline-block;
+    font-family: Consolas,"Liberation Mono",Courier,monospace;
+    font-size: .85em;
+    font-weight: 700;
+    line-height: inherit;
+    padding: 2px 4px;
+    white-space: nowrap;
+}
 {{ range $p := .Site.RegularPages }}
 {{ with $p.Params.thumbnail }}
 .thumb-{{ $p.UniqueID }} {
