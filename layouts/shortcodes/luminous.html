@@ -1,22 +1,24 @@
 {{/* https://gohugo.io/content-management/image-processing/#image-processing-examples */}}
-{{ $original := .Page.Resources.GetMatch (.Get "src") }}
-{{ $command := default "resize" (lower (.Get "cmd")) }}
-{{ $options := default "320x" (lower (.Get "size")) }}
-{{ $title := default "" (.Get "title") }}
-{{ if eq $command "fit"}}
-    {{ .Scratch.Set "image" ($original.Fit $options) }}
-{{ else if eq $command "resize"}}
-    {{ .Scratch.Set "image" ($original.Resize $options) }}
-{{ else if eq $command "fill"}}
-    {{ .Scratch.Set "image" ($original.Fill $options) }}
-{{ else }}
-    {{ errorf "Invalid image processing command: Must be one of Fit, Fill or Resize."}}
-{{ end }}
-{{ $image := .Scratch.Get "image" }}
-{{ if le $original.Width $image.Width}}
-    {{ $image = $original }}
-{{ end }}
-<a class="luminous" href="{{ $original.RelPermalink }}">
-        <img style="max-width: 100%; height: auto;" src="{{ $image.RelPermalink }}" width="{{ $image.Width }}"
-            height="{{ $image.Height }}" data-original="{{ $original.RelPermalink }}" />
-</a>
+{{ if .Page.Resources.GetMatch (.Get "src") }}
+    {{ $original := .Page.Resources.GetMatch (.Get "src")  }}
+    {{ $command := default "resize" (lower (.Get "cmd")) }}
+    {{ $options := default "320x" (lower (.Get "size")) }}
+    {{ $title := default "" (.Get "title") }}
+    {{ if eq $command "fit"}}
+        {{ .Scratch.Set "image" ($original.Fit $options) }}
+    {{ else if eq $command "resize"}}
+        {{ .Scratch.Set "image" ($original.Resize $options) }}
+    {{ else if eq $command "fill"}}
+        {{ .Scratch.Set "image" ($original.Fill $options) }}
+    {{ else }}
+        {{ errorf "Invalid image processing command: Must be one of Fit, Fill or Resize."}}
+    {{ end }}
+    {{ $image := .Scratch.Get "image" }}
+    {{ if le $original.Width $image.Width}}
+        {{ $image = $original }}
+    {{ end }}
+    <a class="luminous" href="{{ $original.RelPermalink }}">
+            <img style="max-width: 100%; height: auto;" src="{{ $image.RelPermalink }}" width="{{ $image.Width }}"
+                height="{{ $image.Height }}" data-original="{{ $original.RelPermalink }}" />
+    </a>
+{{end}}
