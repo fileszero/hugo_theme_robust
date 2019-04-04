@@ -343,7 +343,9 @@ article.sn > .article-body em {
 article.sn > .article-body code,
 article.sn > .article-body pre {
   font-family: Menlo, Consolas, monospace;
-  font-size: .7rem;
+  /* font-size: .7rem; */
+  font-size: 0.9rem;
+  line-height: 1.1rem;
 }
 
 article.sn > .article-body pre {
@@ -363,7 +365,8 @@ article.sn > .article-body pre {
 
 article.sn > .article-body pre > code {
   display: block;
-  padding: 1rem 2rem;
+  /* padding: 1rem 2rem; */
+  padding: 1rem 0.5rem;
 }
 
 @media (max-width: 768px) {
