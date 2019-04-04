@@ -1,6 +1,6 @@
 <article class="lism">
   <a href="{{ .Permalink }}">
-    <div class="thumb thumb-{{ .UniqueID }}"></div>
+    {{ block "thumb" . }}{{ partial "thumb.html" . }}{{ end }}
 
     <div class="inner">
       <div class="title">{{ .Title }}</div>

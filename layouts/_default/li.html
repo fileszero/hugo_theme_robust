@@ -1,6 +1,6 @@
 <article class="li">
   <a href="{{ .Permalink }}">
-    <div class="thumb thumb-{{ .UniqueID }}"></div>
+    {{ block "thumb" . }}{{ partial "thumb.html" . }}{{ end }}
 
     <div class="inner">
       <h2 class="title">{{ .Title }}</h2>
