@@ -1,4 +1,5 @@
-{{ $img := .Resources.GetMatch (printf "**%s" .Params.featured_image) }}
+{{ $page := .}}
+{{ $img := $page.Resources.GetMatch (printf "**%s" .Params.featured_image) }}
 {{ if $img }}
   {{ with $img }}
     <div class="thumb " style="background-image:url({{ .Permalink }})"></div>
@@ -7,12 +8,18 @@
   {{ $first_img := findRE "<img.*?src=[^>]*?>" .Content 1 }}
   {{ if $first_img }}
     {{ range $first_img }}
-      {{ $img := (. | findRE "data-original=[\"'][^\"']+") }}
-      {{ if not $img }}
-        {{ $img = (. | findRE "src=[\"'][^\"']+") }}
+      {{ $src := (. | findRE "data-original=[\"'][^\"']+") }}
+      {{ if not $src }}
+        {{ $src = (. | findRE "src=[\"'][^\"']+") }}
       {{ end }}
-      {{ range $img }}
-        <div class="thumb " style="background-image:url({{ replaceRE "(data-original|src)=[\"']" "" . }})"></div>
+      {{ range $src }}
+        {{ $url := (replaceRE "(data-original|src)=[\"']" "" . )}}
+        {{ $img := $page.Resources.GetMatch (printf "**%s" $url) }}
+        {{ if $img }}
+            <div class="thumb " style="background-image:url({{ $img.Permalink }})"></div>
+        {{else}}
+            <div class="thumb " style="background-image:url({{ $url }})"></div>
+        {{end}}
       {{end}}
     {{end}}
   {{else}}
