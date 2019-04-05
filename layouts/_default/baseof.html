@@ -11,9 +11,9 @@
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/solarized_dark.min.css">
     <title>{{ block "title" . }}{{ end }}{{ .Site.Title }}</title>
     {{ block "meta" . }}{{ end }}
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/custom.css">
     <style>
-      {{ replaceRE " +" " " (replaceRE "\n" "" (partial "styles.css" .)) | safeCSS }}
-      {{ replaceRE " +" " " (replaceRE "\n" "" (partial "custom.css" .)) | safeCSS }}
       {{ with .Site.Params.fontfamily }} body { font-family: {{ . | safeCSS }}; } {{ end }}
       {{ with .Site.Params.logofontfamily }} .h-logo { font-family: {{ . | safeCSS }}; } {{ end }}
     </style>
