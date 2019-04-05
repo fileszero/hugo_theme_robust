@@ -1,9 +1,8 @@
 {{ $page := .}}
+{{ $url := ""}}
 {{ $img := $page.Resources.GetMatch (printf "**%s" .Params.featured_image) }}
 {{ if $img }}
-  {{ with $img }}
-    <div class="thumb " style="background-image:url({{ .Permalink }})"></div>
-  {{ end }}
+    {{ $url = $img.Permalink}}
 {{else}}
   {{ $first_img := findRE "<img.*?src=[^>]*?>" .Content 1 }}
   {{ if $first_img }}
@@ -13,17 +12,18 @@
         {{ $src = (. | findRE "src=[\"'][^\"']+") }}
       {{ end }}
       {{ range $src }}
-        {{ $url := (replaceRE "(data-original|src)=[\"']" "" . )}}
+        {{ $url = (replaceRE "(data-original|src)=[\"']" "" . )}}
         {{ $img := $page.Resources.GetMatch (printf "**%s" $url) }}
         {{ if $img }}
-            <div class="thumb " style="background-image:url({{ $img.Permalink }})"></div>
-        {{else}}
-            <div class="thumb " style="background-image:url({{ $url }})"></div>
+            {{ $url = $img.Permalink}}
         {{end}}
       {{end}}
     {{end}}
-  {{else}}
-    <div class="thumb thumb-{{ .UniqueID }}"></div>
   {{ end }}
 {{ end }}
 
+{{ if eq $url ""}}
+  <div class="thumb"></div>
+{{else}}
+  <div class="thumb " style="background-image:url({{ $url }})"></div>
+{{end}}
