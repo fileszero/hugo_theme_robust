@@ -721,3 +721,34 @@ kbd{
 .header-link:hover{
   color: #2196f3;
 }
+
+div.highlight div.chroma table{
+  width: 95%;
+}
+
+div.highlight div.chroma table tr{
+  border: none;
+}
+
+div.highlight td{
+  border: none;
+  padding: 0px;
+}
+
+div.highlight div.chroma table tr td:first-child{
+  border-right: gray 1px solid;
+  width: 3rem;
+  text-align: right;
+}
+
+div.highlight pre.chroma {
+  margin: 0px;
+  padding-top: 0px;
+}
+div.highlight div.code-name {
+  font-family: Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-left: #002b36 5px solid;
+  padding-left: 0.5rem;
+}
