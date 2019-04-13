@@ -752,3 +752,13 @@ div.highlight div.code-name {
   border-left: #002b36 5px solid;
   padding-left: 0.5rem;
 }
+
+div.amazon-shortcode-box{
+}
+div.amazon-shortcode-image{
+  float: left;
+  margin-right: 1rem;
+}
+div.amazon-shortcode-info{
+  font-size: 0.8rem;
+}
