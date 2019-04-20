@@ -1,9 +1,39 @@
+{{ $page := .}}
+{{ $image_url := ""}}
+{{ $image_url_default := printf "%s%s" .Site.BaseURL "images/default.jpg"}}
+{{ if hasPrefix .Params.featured_image "/" }}
+  {{ $image_url = printf "%s%s" .Site.BaseURL .Params.featured_image}}
+{{ end }}
+{{if eq $image_url ""}}
+  {{ $img := $page.Resources.GetMatch (printf "**%s" .Params.featured_image) }}
+  {{ if $img }}
+      {{ $image_url = $img.Permalink}}
+  {{else}}
+    {{ $first_img := findRE "<img.*?src=[^>]*?>" .Content 1 }}
+    {{ if $first_img }}
+      {{ range $first_img }}
+        {{ $src := (. | findRE "data-original=[\"'][^\"']+") }}
+        {{ if not $src }}
+          {{ $src = (. | findRE "src=[\"'][^\"']+") }}
+        {{ end }}
+        {{ range $src }}
+          {{ $image_url = (replaceRE "(data-original|src)=[\"']" "" . )}}
+          {{ $img := $page.Resources.GetMatch (printf "**%s" $image_url) }}
+          {{ if $img }}
+              {{ $image_url = $img.Permalink}}
+          {{end}}
+        {{end}}
+      {{end}}
+    {{ end }}
+  {{ end }}
+{{ end }}
+
 <meta name="description" content="{{ replaceRE "\n" "" (.Description | default .Summary) }}">
 
 <meta property="og:title" content="{{ .Title }} - {{ .Site.Title }}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{{ .Permalink }}">
-<meta property="og:image" content="{{ .Site.BaseURL }}{{ .Params.thumbnail | default "images/default.png" }}">
+<meta property="og:image" content="{{ $image_url | default  $image_url_default }}">
 <meta property="og:site_name" content="{{ .Site.Title }}">
 <meta property="og:description" content="{{ replaceRE "\n" "" (.Description | default .Summary) }}">
 <meta property="og:locale" content="ja_JP">
@@ -13,5 +43,5 @@
 <meta name="twitter:url" content="{{ .Permalink }}">
 <meta name="twitter:title" content="{{ .Title }} - {{ .Site.Title }}">
 <meta name="twitter:description" content="{{ replaceRE "\n" "" (.Description | default .Summary) }}">
-<meta name="twitter:image" content="{{ .Site.BaseURL }}{{ .Params.thumbnail | default "images/default.png" }}">
+<meta name="twitter:image" content="{{ $image_url | default $image_url_default }}">
 
