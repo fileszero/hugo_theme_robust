@@ -3,8 +3,11 @@ https://backport.net/blog/2016/12/08/amazon_product_advertising_api/
 https://backport.net/blog/2016/12/10/hugo_shortcodes_amazon/
 */}}
 {{ $itemId := index .Params 0 }}
-{{ $json := getJSON $.Site.Params.amazonAPIWrapper "?item=" $itemId }}
-
+{{ $json:=""}}
+{{ with $.Site.Params.amazonAPIWrapper }}
+  {{ $json = getJSON . "?item=" $itemId }}
+{{end}}
+{{ if ne $json "" }}
 <div class="amazon-shortcode-box">
   <div class="amazon-shortcode-image">
     <a href="http://www.amazon.co.jp/exec/obidos/ASIN/{{ $itemId }}/{{ $json.associate_id }}/" name="amazon-shortcode" target="\_blank">
@@ -38,3 +41,4 @@ https://backport.net/blog/2016/12/10/hugo_shortcodes_amazon/
   </div>
   <br style="clear: both;"/>
 </div>
+{{ end }}
