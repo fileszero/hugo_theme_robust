@@ -7,7 +7,9 @@ https://backport.net/blog/2016/12/10/hugo_shortcodes_amazon/
 {{ with $.Site.Params.amazonAPIWrapper }}
   {{ $json = getJSON . "?item=" $itemId }}
 {{end}}
-{{ if ne $json "" }}
+{{ if eq $json "" }}
+<a href="https://www.amazon.co.jp/gp/product/{{ $itemId }}">Amazon link</a>
+{{ else }}
 <div class="amazon-shortcode-box">
   <div class="amazon-shortcode-image">
     <a href="http://www.amazon.co.jp/exec/obidos/ASIN/{{ $itemId }}/{{ $json.associate_id }}/" name="amazon-shortcode" target="\_blank">
