@@ -1,0 +1,12 @@
+
+<!-- https://gohugo.io/templates/files/ -->
+{{$file := .Get "file"}}
+{{ if hasPrefix $file "/"}}
+{{ else }}
+    {{ $file = path.Join .Page.File.Dir $file}}
+{{ end }}
+{{- if eq (.Get "markdown") "true" -}}
+{{- $file  | readFile | markdownify -}}
+{{- else -}}
+{{ $file  | readFile | safeHTML }}
+{{- end -}}
