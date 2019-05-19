@@ -24,8 +24,9 @@
   <div class="article-body">{{ .Content }}</div>
 
   <footer class="article-footer">
-    {{ partial "single-bottom-ad.html" . }}
-
+    {{ if (.Params.single_bottom_ad | default true ) }}
+      {{ partial "single-bottom-ad.html" . }}
+    {{ end }}
     {{ partial "share.html" . }}
 
     <section class="footer">
