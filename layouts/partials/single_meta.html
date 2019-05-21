@@ -17,15 +17,7 @@
           {{ $src = (. | findRE "src=[\"'][^\"']+") }}
         {{ end }}
         {{ range $src }}
-          {{ $image_url = (replaceRE "(data-original|src)=[\"']" "" . )}}
-          {{ $img := $page.Resources.GetMatch (printf "**%s" $image_url) }}
-          {{ if $img }}
-              {{ $image_url = $img.Permalink}}
-          {{end}}
-          {{ if hasPrefix $image_url $.Site.BaseURL}}
-          {{else}}
-            {{ $image_url = printf "/%s" (path.Join $.Site.BaseURL $image_url) }}
-          {{end}}
+          {{ $image_url = (replaceRE "(data-original|src)=[\"']" "" . ) | absURL }}
         {{end}}
       {{end}}
     {{ end }}
