@@ -22,6 +22,10 @@
           {{ if $img }}
               {{ $image_url = $img.Permalink}}
           {{end}}
+          {{ if hasPrefix $image_url $.Site.BaseURL}}
+          {{else}}
+            {{ $image_url = printf "/%s" (path.Join $.Site.BaseURL $image_url) }}
+          {{end}}
         {{end}}
       {{end}}
     {{ end }}
