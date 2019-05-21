@@ -17,11 +17,7 @@
           {{ $src = (. | findRE "src=[\"'][^\"']+") }}
         {{ end }}
         {{ range $src }}
-          {{ $image_url = (replaceRE "(data-original|src)=[\"']" "" . )}}
-          {{ $img := $page.Resources.GetMatch (printf "**%s" $image_url) }}
-          {{ if $img }}
-              {{ $image_url = $img.Permalink}}
-          {{end}}
+          {{ $image_url = (replaceRE "(data-original|src)=[\"']" "" . ) | absURL }}
         {{end}}
       {{end}}
     {{ end }}
@@ -38,7 +34,7 @@
 <meta property="og:description" content="{{ replaceRE "\n" "" (.Description | default .Summary) }}">
 <meta property="og:locale" content="ja_JP">
 
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 <meta name="twitter:site" content="{{ .Site.Title }}">
 <meta name="twitter:url" content="{{ .Permalink }}">
 <meta name="twitter:title" content="{{ .Title }} - {{ .Site.Title }}">
