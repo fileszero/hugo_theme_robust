@@ -13,6 +13,11 @@
         {{ with .github }}<li><a href="{{ . }}" rel="nofollow" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a></li>{{ end }}
       </ul>
       <div class="author-description">{{ .description | safeHTML }}</div>
+      <div class="author-privacy-policy">
+        {{ with .privacypolicy }}
+          <a href="{{ . }}">PRIVACY POLICY</a>
+        {{ end }}
+      </div>
     </div>
   </div>
 </section>
