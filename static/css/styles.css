@@ -382,7 +382,7 @@ article.sn > .article-body p code {
 
 article.sn > .article-body blockquote {
   position: relative;
-  border-left: .25rem solid #333;
+  border-left: .25rem solid #AAA;
   font-size: .8rem;
   padding: .125rem 1rem;
   margin: 1.5rem 0;
@@ -450,6 +450,12 @@ section.sidebar > header {
   letter-spacing: 4px;
   text-align: center;
   margin: 1.5rem 0;
+}
+
+section.sidebar > header a {
+  font-weight: 700;
+  color: #333;
+  text-decoration: underline;
 }
 
 section.footer {
